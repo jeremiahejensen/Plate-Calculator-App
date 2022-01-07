@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-platecalculatorapp-staging-213748-authRole",
+      "UnauthRoleArn": "arn:aws:iam::211767490000:role/amplify-platecalculatorapp-staging-213748-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::211767490000:role/amplify-platecalculatorapp-staging-213748-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-platecalculatorapp-staging-213748-deployment",
+      "UnauthRoleName": "amplify-platecalculatorapp-staging-213748-unauthRole",
+      "StackName": "amplify-platecalculatorapp-staging-213748",
+      "StackId": "arn:aws:cloudformation:us-east-2:211767490000:stack/amplify-platecalculatorapp-staging-213748/e5062680-6f38-11ec-8cbd-0668cf9a3434",
+      "AmplifyAppId": "d1nfj9yevnricb"
+    },
+    "categories": {
+      "auth": {
+        "platecalculatorapp34ed9ccd": {}
+      }
+    }
+  }
+}
