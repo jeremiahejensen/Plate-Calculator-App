@@ -8,9 +8,10 @@ export const createPlates = /* GraphQL */ `
   ) {
     createPlates(input: $input, condition: $condition) {
       id
-      name
+      Weight
       description
       username
+      color
       createdAt
       updatedAt
     }
@@ -23,9 +24,10 @@ export const updatePlates = /* GraphQL */ `
   ) {
     updatePlates(input: $input, condition: $condition) {
       id
-      name
+      Weight
       description
       username
+      color
       createdAt
       updatedAt
     }
@@ -38,9 +40,10 @@ export const deletePlates = /* GraphQL */ `
   ) {
     deletePlates(input: $input, condition: $condition) {
       id
-      name
+      Weight
       description
       username
+      color
       createdAt
       updatedAt
     }

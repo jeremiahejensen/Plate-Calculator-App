@@ -5,9 +5,10 @@ export const getPlates = /* GraphQL */ `
   query GetPlates($id: ID!) {
     getPlates(id: $id) {
       id
-      name
+      Weight
       description
       username
+      color
       createdAt
       updatedAt
     }
@@ -22,9 +23,10 @@ export const listPlates = /* GraphQL */ `
     listPlates(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        Weight
         description
         username
+        color
         createdAt
         updatedAt
       }

@@ -5,9 +5,10 @@ export const onCreatePlates = /* GraphQL */ `
   subscription OnCreatePlates {
     onCreatePlates {
       id
-      name
+      Weight
       description
       username
+      color
       createdAt
       updatedAt
     }
@@ -17,9 +18,10 @@ export const onUpdatePlates = /* GraphQL */ `
   subscription OnUpdatePlates {
     onUpdatePlates {
       id
-      name
+      Weight
       description
       username
+      color
       createdAt
       updatedAt
     }
@@ -29,9 +31,10 @@ export const onDeletePlates = /* GraphQL */ `
   subscription OnDeletePlates {
     onDeletePlates {
       id
-      name
+      Weight
       description
       username
+      color
       createdAt
       updatedAt
     }
