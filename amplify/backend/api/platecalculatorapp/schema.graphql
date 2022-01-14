@@ -9,6 +9,3 @@ type Plates @model {
   username: String
   color: String
 }
-
-
-
