@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { API } from 'aws-amplify';
 import { createPlates as createPlatesMutation, deletePlates as deletePlatesMutation } from '../graphql/mutations';
 import { listPlates } from '../graphql/queries';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import { HexColorPicker } from "react-colorful";
 import '@aws-amplify/ui-react/styles.css';
 import '../App.css';
 import {username} from '../App.js'
-const initialFormState = { weight: 0, color: '#000000' }
 
-const Inventory = ({ user, signOut }) => {
+const initialFormState = { weight: 0, color: '#000000' }
+const Inventory = ({ user, signOut, isPassedToWithAuthenticator }) => {
 
   useEffect(() => {
     fetchPlates();
@@ -63,9 +64,10 @@ value={formData.color}
      />
   </div>
   <br/>
-  <label for="weight">Weight (LBS):</label>
+  <label htmlFor="weightInput">Weight (LBS):</label>
   <input
     onChange={e => setFormData({ ...formData, 'weight': e.target.value})}
+    id="weightInput"
     placeholder="Weight"
     value={formData.weight}
   />
@@ -96,7 +98,6 @@ value={formData.color}
       </tbody>
     </table>
   </div>
-  <button onClick={signOut}>Sign out</button>
 </div>
 );
   };

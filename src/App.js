@@ -9,6 +9,7 @@ import NoPage from "./pages/NoPage";
 import Layout from "./pages/Layout";
 import Contact from "./pages/Contact";
 import Inventory from "./pages/Inventory";
+
 Amplify.configure(awsExports);
 
 var username = '';
@@ -16,7 +17,7 @@ function App({ isPassedToWithAuthenticator, signOut, user }) {
 
   username = user.username;
 
-  return (
+  return ( 
 
     <BrowserRouter>
     <Routes>
@@ -27,12 +28,14 @@ function App({ isPassedToWithAuthenticator, signOut, user }) {
         <Route path="*" element={<NoPage />} />
       </Route>
     </Routes>
+    <button onClick={signOut}>Sign out</button>
   </BrowserRouter>
 
   );
   }
   export {username};
-  export default withAuthenticator(App);
+  export default withAuthenticator(App, Inventory);
+  //export {withAuthenticator(Inventory)};
   export async function getStaticProps() {
   return {
     props: {
