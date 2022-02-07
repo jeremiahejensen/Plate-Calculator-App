@@ -9,7 +9,7 @@ import '../App.css';
 import {username} from '../App.js'
 
 const initialFormState = { weight: 0, color: '#000000' }
-const Inventory = ({ user, signOut, isPassedToWithAuthenticator }) => {
+const Inventory = ({ user, signOut }) => {
 
   useEffect(() => {
     fetchPlates();
