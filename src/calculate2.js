@@ -1,11 +1,10 @@
 
 
-let desiredWeights = 300
-let currentWeight = 0
-let bar = 45
-let neededWeights = (desiredWeights - bar) / 2
-let totalPlates = 0
-let platesIUsed = []
+let desiredWeights = 110;
+let bar = 45;
+let neededWeights = (desiredWeights - bar) / 2;
+let totalPlates = 0;
+let platesIUsed = [];
 
 
 let knownWeights = [
@@ -13,25 +12,25 @@ let knownWeights = [
     "id": 45,
     "weight": 45,
     "inventory": 3,
-    "color": ""
+    "color": "black"
   }, 
   {
     "id": 35,
     "weight": 35,
     "inventory": 1,
-    "color": ""
+    "color": "red"
   },
   {
     "id": 25,
     "weight": 25,
     "inventory": 1,
-    "color": ""
+    "color": "blue"
   },
   {
     "id": 15,
     "weight": 15,
     "inventory": 1,
-    "color": ""
+    "color": "yellow"
   },
   {
     "id": 10,
@@ -64,39 +63,34 @@ while(neededWeights > 0){
     let weightObject = knownWeights.pop();
     
     if (neededWeights >= weightObject.weight && weightObject.inventory > 0) {
-      weightObject.inventory = weightObject.inventory - 1
+      weightObject.inventory = weightObject.inventory - 1;
       if (weightObject.inventory > 0){
-        knownWeights.push(weightObject)
+        knownWeights.push(weightObject);
       }
-      neededWeights = neededWeights - weightObject.weight
-      totalPlates = totalPlates + weightObject.weight * 2
-      platesIUsed.push(weightObject.weight)
-      console.log("I just pushed " + weightObject.id + " onto the array");
+      neededWeights = neededWeights - weightObject.weight;
+      totalPlates = totalPlates + weightObject.weight * 2;
+      platesIUsed.push(weightObject);
+      console.log("I just pushed " + weightObject.id + " onto the array. Color:" + weightObject.color);
     }
 
   }
 }
 
 
-console.log('I am done with the loop & i still need '+ neededWeights)
+console.log('I am done with the loop & i still need '+ neededWeights);
 console.log(`I have ${totalPlates} lbs on the bar for a total of `+ (totalPlates + bar) + ' lbs ');
 
-
-platesIUsed.forEach(function (item) {
-  let li = document.createElement('li');
-  li.innerHTML += item.weight;
-
-});
-
 platesIUsed.forEach(function(item, index, array) {
-  let color = "color: " + item.color  
+  let color = "color: " + item.color;  
   console.log('%c'+ item.weight , color);
 }); 
 
-
-
 platesIUsed.forEach(function(item, index, array) {
-    console.log(item)
-  })
+    console.log(item.color);
+  });
+
+platesIUsed.map(plate =>
+  console.log(plate.id + " Weight:" + plate.weight + " color:" + plate.color)
+);
 
 export default platesIUsed; 
