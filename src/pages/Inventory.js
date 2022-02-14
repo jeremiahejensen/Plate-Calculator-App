@@ -101,5 +101,7 @@ value={formData.color}
 </div>
 );
   };
+  export default (Inventory);
+
+
   
-  export default Inventory;

@@ -1,15 +1,13 @@
 import { useState } from "react";
 import ReactDOM from 'react-dom';
-import knownWeights from "../calculate2";
 import platesIUsed from "../calculate2";
 
 
+const Home = () => { const [setName] = useState("");
 
-const Home = () => { const [platesIUsed, setName] = useState("");
 
 const handleSubmit = (knownWeights) => {
   knownWeights.preventDefault();
-  alert(`The weight you entered was: ${platesIUsed}`);
 }
 
 return (
@@ -17,13 +15,32 @@ return (
     <label>Enter your weight:
       <input 
         type="text" 
-        value={platesIUsed}
+        value= {setName}
         onChange={(e) => setName(e.target.value)}
       />
     </label>
     <input type="submit" />
-    <input></input>
-  </form>
+    <h1>The weight you entered was: {setName}</h1>
+
+   <div style={{marginBottom: 30}}>
+    <table className="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Weight</th>
+                    <th>Color</th>
+                </tr>
+            </thead>
+      <tbody>
+      {platesIUsed.map(x =>
+              <tr key={x.id}>
+                  <td>{x.weight}</td>
+                  <td>{x.color}</td>
+              </tr>
+          )}
+      </tbody>
+    </table>
+  </div>
+ </form>
 )
 }
 

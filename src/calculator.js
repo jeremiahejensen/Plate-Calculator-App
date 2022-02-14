@@ -1,4 +1,4 @@
-export function calculatePlates (desiredWeight, knownWeights) {
+/* export function calculatePlates (desiredWeight, knownWeights) {
 knownWeights.sort((a, b) => a.weight - b.weight);
 
 let bar = 45
@@ -26,4 +26,4 @@ while(neededWeights > 0){
   }
 }
 }
-export default calculatePlates;
+export default calculatePlates; */
