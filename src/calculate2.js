@@ -1,13 +1,12 @@
 
+export default function calculatePlates(desiredWeights) {
+  let bar = 45;
+  let neededWeights = (desiredWeights - bar) / 2;
+  let totalPlates = 0;
+  let platesIUsed = [];
+ 
 
-let desiredWeights = 110;
-let bar = 45;
-let neededWeights = (desiredWeights - bar) / 2;
-let totalPlates = 0;
-let platesIUsed = [];
-
-
-let knownWeights = [
+  let knownWeights = [
   {
     "id": 45,
     "weight": 45,
@@ -52,11 +51,11 @@ let knownWeights = [
   }];
 
 // neededWeights hold the all the plates to put on one side of the bar. 
-console.log(`You are lifting ${desiredWeights} total Pounds`)
+console.log(`You are lifting ${desiredWeights} total Pounds`);
 
 knownWeights.sort((a, b) => a.weight - b.weight);
 
-console.log('I need '+ neededWeights +' lbs on one side of the bar. ')
+console.log('I need '+ neededWeights +' lbs on one side of the bar. ');
 while(neededWeights > 0){
 
   while(knownWeights.length > 0){
@@ -86,11 +85,14 @@ platesIUsed.forEach(function(item, index, array) {
 }); 
 
 platesIUsed.forEach(function(item, index, array) {
-    console.log(item.color);
+ 
+  console.log(item.color);
+  
   });
 
 platesIUsed.map(plate =>
   console.log(plate.id + " Weight:" + plate.weight + " color:" + plate.color)
 );
 
-export default platesIUsed; 
+  return platesIUsed;
+};

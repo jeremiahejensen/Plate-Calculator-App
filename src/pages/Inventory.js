@@ -6,9 +6,9 @@ import { withAuthenticator } from '@aws-amplify/ui-react';
 import { HexColorPicker } from "react-colorful";
 import '@aws-amplify/ui-react/styles.css';
 import '../App.css';
-import {username} from '../App.js'
+import {username} from '../App.js';
 
-const initialFormState = { weight: 0, color: '#000000' }
+const initialFormState = { weight: 0, color: '#000000' };
 const Inventory = ({ user, signOut }) => {
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Inventory = ({ user, signOut }) => {
   const [weights, setWeights] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
   
-  
+
   //This is the function that writes to the database
   async function createPlates() {
     const newPlate = { 
@@ -27,7 +27,7 @@ const Inventory = ({ user, signOut }) => {
       username: username,
       color: formData.color
   };
-     await API.graphql({ query: createPlatesMutation, variables: { input: newPlate } }).then(()=>{fetchPlates()});
+     await API.graphql({ query: createPlatesMutation, variables: { input: newPlate } }).then(()=>{fetchPlates();});
   }
 
   
@@ -47,7 +47,7 @@ const Inventory = ({ user, signOut }) => {
     await API.graphql({ query: deletePlatesMutation, variables: { input: { id } }});
   }
 
-  const handleColorChange = ({ hex }) => console.log(hex)
+  const handleColorChange = ({ hex }) => console.log(hex);
 
 
   return (
@@ -102,6 +102,3 @@ value={formData.color}
 );
   };
   export default (Inventory);
-
-
-  

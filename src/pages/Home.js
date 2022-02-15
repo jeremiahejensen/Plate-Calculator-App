@@ -1,16 +1,20 @@
 import { useState } from "react";
 import ReactDOM from 'react-dom';
-import platesIUsed from "../calculate2";
+import calculatePlates from "../calculate2";
 
 const Home = () => { 
+
   const [desiredWeight, setDesiredWeight] = useState([]);
+  const [platesIUsed, setPlatesIUsed] = useState([]);
 
-const handleSubmit = (knownWeights) => {
-  console.log("Hello from handleSubmit");
-  knownWeights.preventDefault();
-};
+  const handleSubmit = event => {
+    var x = calculatePlates(desiredWeight);
+    event.preventDefault();
+    setPlatesIUsed(x);
+  };
+ 
+  console.log(platesIUsed);
 
-console.log(platesIUsed);
 return (
   <form onSubmit={handleSubmit}>
     <label>Enter your weight:
@@ -22,27 +26,27 @@ return (
     </label>
     <input type="submit" />
     <h1>The weight you entered was: {desiredWeight}</h1>
-
+    
     { platesIUsed.length > 0 &&
-   <div style={{marginBottom: 30}}>
-    <table className="table table-striped table-bordered">
-            <thead>
-                <tr key="header">
-                    <th>Weight</th>
-                    <th>Color</th>
-                </tr>
-            </thead>
-      <tbody>
-      {platesIUsed.map(plate =>
+      <div style={{marginBottom: 30}}>
+        <table className="table table-striped table-bordered">
+          <thead>
+            <tr key="header">
+              <th>Weight</th>
+              <th>Color</th>
+            </tr>
+          </thead>
+          <tbody>
+            {platesIUsed.map(plate =>
               <tr key={plate.id}>
-                  <td>{plate.weight}</td>
-                  <td>{plate.color}</td>
+                <td>{plate.weight}</td>
+                <td>{plate.color}</td>
               </tr>
-          )}
-      </tbody>
-    </table>
-  </div>
-}
+            )}
+          </tbody>
+        </table>
+      </div>
+    }
  </form>
 )
 }
