@@ -1,0 +1,82 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-platecalculatorapp-staging-213748-authRole",
+      "UnauthRoleArn": "arn:aws:iam::211767490000:role/amplify-platecalculatorapp-staging-213748-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::211767490000:role/amplify-platecalculatorapp-staging-213748-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-platecalculatorapp-staging-213748-deployment",
+      "UnauthRoleName": "amplify-platecalculatorapp-staging-213748-unauthRole",
+      "StackName": "amplify-platecalculatorapp-staging-213748",
+      "StackId": "arn:aws:cloudformation:us-east-2:211767490000:stack/amplify-platecalculatorapp-staging-213748/e5062680-6f38-11ec-8cbd-0668cf9a3434",
+      "AmplifyAppId": "d1nfj9yevnricb"
+    }
+  },
+  "auth": {
+    "platecalculatorapp34ed9ccd": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-platecalculatorapp-staging-213748-deployment/amplify-cfn-templates/auth/platecalculatorapp34ed9ccd-cloudformation-template.json",
+        "logicalId": "authplatecalculatorapp34ed9ccd"
+      },
+      "lastPushTimeStamp": "2022-01-13T18:54:19.520Z",
+      "output": {
+        "UserPoolId": "us-east-2_t6CL4HhEm",
+        "AppClientIDWeb": "2etb3g7bs5ve7ro42togu0mhlj",
+        "AppClientID": "72lf1657koku8ak6qlfonfgl46",
+        "IdentityPoolId": "us-east-2:f4b53691-a621-4945-9119-a6e4b8112c1b",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-2:211767490000:userpool/us-east-2_t6CL4HhEm",
+        "IdentityPoolName": "platecalculatorapp34ed9ccd_identitypool_34ed9ccd__staging",
+        "UserPoolName": "platecalculatorapp34ed9ccd_userpool_34ed9ccd"
+      },
+      "lastPushDirHash": "Zv2ffyfI7vj7Y22Mlk8PgwD8anM="
+    }
+  },
+  "api": {
+    "platecalculatorapp": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "ksi7rp4tu5aavg4nt7uktj42bq",
+        "GraphQLAPIEndpointOutput": "https://pz67pmxgn5bojolocv633yqpum.appsync-api.us-east-2.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-nj4s4vzm4vbgdi3cflkknubel4"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-platecalculatorapp-staging-213748-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiplatecalculatorapp"
+      },
+      "lastPushTimeStamp": "2022-01-13T18:54:23.330Z",
+      "lastPushDirHash": "9b0958vqXZHbfCD+FrPEQmB5qEs="
+    }
+  }
+}

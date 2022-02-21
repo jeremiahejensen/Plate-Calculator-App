@@ -14,6 +14,9 @@ export const createPlates = /* GraphQL */ `
       color
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -30,6 +33,9 @@ export const updatePlates = /* GraphQL */ `
       color
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -46,6 +52,66 @@ export const deletePlates = /* GraphQL */ `
       color
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const createInventory = /* GraphQL */ `
+  mutation CreateInventory(
+    $input: CreateInventoryInput!
+    $condition: ModelInventoryConditionInput
+  ) {
+    createInventory(input: $input, condition: $condition) {
+      id
+      weight
+      username
+      color
+      inventory
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const updateInventory = /* GraphQL */ `
+  mutation UpdateInventory(
+    $input: UpdateInventoryInput!
+    $condition: ModelInventoryConditionInput
+  ) {
+    updateInventory(input: $input, condition: $condition) {
+      id
+      weight
+      username
+      color
+      inventory
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deleteInventory = /* GraphQL */ `
+  mutation DeleteInventory(
+    $input: DeleteInventoryInput!
+    $condition: ModelInventoryConditionInput
+  ) {
+    deleteInventory(input: $input, condition: $condition) {
+      id
+      weight
+      username
+      color
+      inventory
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { API } from 'aws-amplify';
-import { createPlates as createPlatesMutation, deletePlates as deletePlatesMutation } from '../graphql/mutations';
-import { listPlates } from '../graphql/queries';
-import { withAuthenticator } from '@aws-amplify/ui-react';
-import { HexColorPicker } from "react-colorful";
+import { createInventory as createInventoryMutation, deleteInventory as deleteInventoryMutation } from '../graphql/mutations';
+import { listInventories } from '../graphql/queries';
+// import { withAuthenticator } from '@aws-amplify/ui-react';
+// import { HexColorPicker } from "react-colorful";
 import '@aws-amplify/ui-react/styles.css';
 import '../App.css';
-import {username} from '../App.js';
+import {username as loggedInUser} from '../App.js';
 
 const initialFormState = { weight: 0, color: '#000000' };
 const Inventory = ({ user, signOut }) => {
@@ -19,41 +19,58 @@ const Inventory = ({ user, signOut }) => {
   const [formData, setFormData] = useState(initialFormState);
   
 
-  //This is the function that writes to the database
-  async function createPlates() {
-    const newPlate = { 
-      Weight: formData.weight,
-      description: "hello",
-      username: username,
-      color: formData.color
-  };
-     await API.graphql({ query: createPlatesMutation, variables: { input: newPlate } }).then(()=>{fetchPlates();});
-  }
 
-  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   async function fetchPlates() {
     try {
-      const apiData = await API.graphql({ query: listPlates, variables: { filter: {username: {eq: username}}}})
-      setWeights(apiData.data.listPlates.items);
+      const apiData = await API.graphql({ 
+        query: listInventories, 
+        variables: { 
+          filter: {username: {eq: loggedInUser}}
+        }
+      });
+      // TODO: Fix the query to only return plates that have not been deleted
+
+      // Remove all the deleted inventory
+      var filteredList = apiData.data.listInventories.items.filter(weight => weight._deleted !== true);
+
+      // Save our list of inventory with no deleted records
+      setWeights(filteredList);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
 
 
-  async function deletePlate({ id }) {
-    const newPlatesArray = weights.filter(weight => weight.id !== id);
-    setWeights(newPlatesArray);
-    await API.graphql({ query: deletePlatesMutation, variables: { input: { id } }});
+  //This is the function that writes to the database
+  async function createPlates() {
+    const newPlate = { 
+      weight: formData.weight,
+      inventory: formData.inventory,
+      username: loggedInUser,
+      color: formData.color
+  };
+     await API.graphql({ query: createInventoryMutation, variables: { input: newPlate } }).then(()=>{fetchPlates();});
   }
 
-  const handleColorChange = ({ hex }) => console.log(hex);
+  async function deletePlate(weightToDelete) {
+    const newPlatesArray = weights.filter(weight => weight.id !== weightToDelete.id);
+    setWeights(newPlatesArray);
+    console.log('I am about to delete ID' + weightToDelete.id + ' And verison ' + weightToDelete._version);
+    try {
+      await API.graphql({ query: deleteInventoryMutation, variables: { input: {"id": weightToDelete.id, "_version": weightToDelete._version} }});
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  // const handleColorChange = ({ hex }) => console.log(hex);
 
 
   return (
     <div className="App">
            <h1>Inventory</h1>
-        <h1>Hello {username}</h1>
+        <h1>Hello {loggedInUser}</h1>
   
   <p>Choose your weight's color:</p>
   <div>
@@ -68,10 +85,21 @@ value={formData.color}
   <input
     onChange={e => setFormData({ ...formData, 'weight': e.target.value})}
     id="weightInput"
-    placeholder="Weight"
+    placeholder="weight"
     value={formData.weight}
   />
   <br/>
+
+  <label htmlFor="invInput">How many pairs of plates do you have?:</label>
+  <input
+    onChange={e => setFormData({ ...formData, 'inventory': e.target.value})}
+    id="invInput"
+    placeholder="inventory"
+    value={formData.inventory}
+  />
+  <br/>
+
+
   <button onClick={createPlates}>Create Plate</button>
   <br/> 
   
@@ -88,7 +116,7 @@ value={formData.color}
       <tbody>
           {weights.map(weight =>
               <tr key={weight.id}>
-                  <td>{weight.Weight} {weight.Weight}</td>
+                  <td>{weight.weight}</td>
                   <td>{weight.color}</td>
                   {/* <td><HexColorPicker color= {weight.color} onChangeComplete={ handleColorChange }/></td> */}
 
@@ -101,4 +129,4 @@ value={formData.color}
 </div>
 );
   };
-  export default (Inventory);
+  export default Inventory;

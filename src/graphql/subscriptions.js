@@ -11,6 +11,9 @@ export const onCreatePlates = /* GraphQL */ `
       color
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -24,6 +27,9 @@ export const onUpdatePlates = /* GraphQL */ `
       color
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -37,6 +43,57 @@ export const onDeletePlates = /* GraphQL */ `
       color
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onCreateInventory = /* GraphQL */ `
+  subscription OnCreateInventory {
+    onCreateInventory {
+      id
+      weight
+      username
+      color
+      inventory
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateInventory = /* GraphQL */ `
+  subscription OnUpdateInventory {
+    onUpdateInventory {
+      id
+      weight
+      username
+      color
+      inventory
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteInventory = /* GraphQL */ `
+  subscription OnDeleteInventory {
+    onDeleteInventory {
+      id
+      weight
+      username
+      color
+      inventory
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
