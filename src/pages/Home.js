@@ -21,17 +21,31 @@ const Home = () => {
     setPlatesIUsed(x);
   };
  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  async function fetchPlates() {
-    if (plateInventory.length) return;
 
+  // TODO: We have a fetchPlates function in Inventory and Home. There should only be one function
+
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function fetchPlates() {
+    if (plateInventory.length > 0) return;
     try {
-      const apiData = await API.graphql({ query: listInventories, variables: { filter: {username: {eq: username}}}});
-      setPlateInventory(apiData.data.listInventory.items);
+      const apiData = await API.graphql({ 
+        query: listInventories, 
+        variables: { 
+          filter: {username: {eq: username}}
+        }
+      });
+      // TODO: Fix the query to only return plates that have not been deleted
+
+      // Remove all the deleted inventory
+      var filteredList = apiData.data.listInventories.items.filter(weight => weight._deleted !== true);
+
+      // Save our list of inventory with no deleted records
+      setPlateInventory(filteredList);
     } catch (e) {
       console.log(e);
     }
   }
+
 
   console.log(plateInventory);
 return (

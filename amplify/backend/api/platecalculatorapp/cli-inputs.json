@@ -3,7 +3,7 @@
   "serviceConfiguration": {
     "apiName": "platecalculatorapp",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/tmp/amplify-83531e9d-1d4b-47d8-972c-d9b934e53224/amplify/backend/api/platecalculatorapp/schema.graphql",
+    "gqlSchemaPath": "/tmp/amplify-be7eec3d-9221-448e-a152-cda895293290/amplify/backend/api/platecalculatorapp/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
       "keyDescription": "api key description",

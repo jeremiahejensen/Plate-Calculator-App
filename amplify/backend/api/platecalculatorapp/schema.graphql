@@ -1,6 +1,6 @@
 type Inventory @model @auth(rules: [{allow: public}]) {
   id: ID!
-  weight: Int!
+  weight: Float!
   username: String!
   color: String
   inventory: Int!

@@ -13,7 +13,7 @@ export const schema = {
                 "weight": {
                     "name": "weight",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "Float",
                     "isRequired": true,
                     "attributes": []
                 },
@@ -147,5 +147,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "91056dade8e2182d286b3ee016b3445e"
+    "version": "8a2a4289d1b843eeb8947ca3fdb86f7d"
 };

@@ -1,8 +1,8 @@
+import { DataStore, Predicates, SortDirection } from '@aws-amplify/datastore';
+import { Inventory as InventoryModel } from '../models';
 import React, { useState, useEffect } from 'react';
 import { API } from 'aws-amplify';
-import { createInventory as createInventoryMutation, deleteInventory as deleteInventoryMutation } from '../graphql/mutations';
-import { listInventories } from '../graphql/queries';
-// import { withAuthenticator } from '@aws-amplify/ui-react';
+import { deleteInventory as deleteInventoryMutation } from '../graphql/mutations';
 // import { HexColorPicker } from "react-colorful";
 import '@aws-amplify/ui-react/styles.css';
 import '../App.css';
@@ -22,36 +22,29 @@ const Inventory = ({ user, signOut }) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function fetchPlates() {
-    try {
-      const apiData = await API.graphql({ 
-        query: listInventories, 
-        variables: { 
-          filter: {username: {eq: loggedInUser}}
-        }
-      });
-      // TODO: Fix the query to only return plates that have not been deleted
 
-      // Remove all the deleted inventory
-      var filteredList = apiData.data.listInventories.items.filter(weight => weight._deleted !== true);
+    if (weights.length > 0) return;
 
-      // Save our list of inventory with no deleted records
-      setWeights(filteredList);
-    } catch (e) {
-      console.log(e);
-    }
+    const models = await DataStore.query(InventoryModel, Predicates.ALL, {
+      sort: s => s.weight(SortDirection.DESCENDING)
+    });
+    console.log(models);
+    setWeights(models);
   }
 
 
   //This is the function that writes to the database
   async function createPlates() {
-    const newPlate = { 
-      weight: formData.weight,
-      inventory: formData.inventory,
-      username: loggedInUser,
-      color: formData.color
-  };
-     await API.graphql({ query: createInventoryMutation, variables: { input: newPlate } }).then(()=>{fetchPlates();});
-  }
+    await DataStore.save(
+    new InventoryModel({
+		"weight": Number(formData.weight),
+		"username": parseInt(formData.inventory, 10),
+		"color": loggedInUser,
+		"inventory": formData.color
+	})
+);
+
+}
 
   async function deletePlate(weightToDelete) {
     const newPlatesArray = weights.filter(weight => weight.id !== weightToDelete.id);
