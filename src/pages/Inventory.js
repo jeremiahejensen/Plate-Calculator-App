@@ -1,4 +1,4 @@
-import { DataStore, Predicates, SortDirection } from '@aws-amplify/datastore';
+import { DataStore } from '@aws-amplify/datastore';
 import { Inventory as InventoryModel } from '../models';
 import React, { useState, useEffect } from 'react';
 import { API } from 'aws-amplify';
@@ -7,30 +7,47 @@ import { deleteInventory as deleteInventoryMutation } from '../graphql/mutations
 import '@aws-amplify/ui-react/styles.css';
 import '../App.css';
 import {username as loggedInUser} from '../App.js';
+import fetchPlates from '../DataBase';
 
 const initialFormState = { weight: 0, color: '#000000' };
 const Inventory = ({ user, signOut }) => {
 
   useEffect(() => {
-    fetchPlates();
-  }, [fetchPlates]);
+    getInventory();
+  }, [getInventory]);
    
   const [weights, setWeights] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
   
-
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  async function fetchPlates() {
+  async function getInventory() {
 
     if (weights.length > 0) return;
 
-    const models = await DataStore.query(InventoryModel, Predicates.ALL, {
-      sort: s => s.weight(SortDirection.DESCENDING)
-    });
-    console.log(models);
-    setWeights(models);
+    var x;
+    x = await fetchPlates();
+    console.log(x);
+  
+    setWeights(x);
+
   }
+
+
+
+
+
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // async function fetchPlates() {
+
+  //   if (weights.length > 0) return;
+
+  //   const models = await DataStore.query(InventoryModel, Predicates.ALL, {
+  //     sort: s => s.weight(SortDirection.DESCENDING)
+  //   });
+  //   console.log(models);
+  //   setWeights(models);
+  // }
 
 
   //This is the function that writes to the database

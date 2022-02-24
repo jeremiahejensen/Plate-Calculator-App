@@ -2,52 +2,96 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import calculatePlates from "../calculate2";
 import knownWeights from "../calculate2";
-import { API } from 'aws-amplify';
-import { listInventories } from '../graphql/queries';
-import {username} from '../App.js';
+// import { API } from 'aws-amplify';
+// import { listInventories } from '../graphql/queries';
+// import {username} from '../App.js';
+import fetchPlates from '../DataBase';
+
+import { DataStore, Predicates, SortDirection } from '@aws-amplify/datastore';
+import { Inventory as InventoryModel } from '../models';
+
 
 const Home = () => { 
   const [plateInventory, setPlateInventory] = useState([]);
   const [desiredWeight, setDesiredWeight] = useState([]);
   const [platesIUsed, setPlatesIUsed] = useState([]);
-  
-  useEffect(() => {
-    fetchPlates();
-  }, [fetchPlates]);
 
+
+  useEffect(() => {
+    getInventory();
+  }, [getInventory]);
+   
   const handleSubmit = event => {
+    console.log('========= About to call calculate. My inventory has ' + plateInventory.length + ' items.');
     var x = calculatePlates(desiredWeight, plateInventory);
     event.preventDefault();
     setPlatesIUsed(x);
   };
- 
+
 
   // TODO: We have a fetchPlates function in Inventory and Home. There should only be one function
 
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-  async function fetchPlates() {
+// eslint-disable-next-line react-hooks/exhaustive-deps
+  async function getInventory() {
+
+    const models = await DataStore.query(InventoryModel, Predicates.ALL, {
+      sort: s => s.weight(SortDirection.DESCENDING)
+    });
+
     if (plateInventory.length > 0) return;
-    try {
-      const apiData = await API.graphql({ 
-        query: listInventories, 
-        variables: { 
-          filter: {username: {eq: username}}
-        }
-      });
-      // TODO: Fix the query to only return plates that have not been deleted
 
-      // Remove all the deleted inventory
-      var filteredList = apiData.data.listInventories.items.filter(weight => weight._deleted !== true);
 
-      // Save our list of inventory with no deleted records
-      setPlateInventory(filteredList);
-    } catch (e) {
-      console.log(e);
+    var x;
+    x = await fetchPlates();
+    
+
+    setPlateInventory(x);
+    console.log('====== Finished getting inventory');
+    console.log(platesIUsed);
     }
-  }
 
 
-  console.log(plateInventory);
+
+
+
+//  // eslint-disable-next-line react-hooks/exhaustive-deps
+//  async function fetchPlates() {
+//   if (plateInventory.length > 0) return;
+//   try {
+//     const apiData = await API.graphql({ 
+//       query: listInventories, 
+//       variables: { 
+//         filter: {username: {eq: username}}
+//       }
+//     });
+//     // TODO: Fix the query to only return plates that have not been deleted
+
+//     // Remove all the deleted inventory
+//     var filteredList = apiData.data.listInventories.items.filter(weight => weight._deleted !== true);
+
+//     // Save our list of inventory with no deleted records
+//     setPlateInventory(filteredList);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 return (
   <form onSubmit={handleSubmit}>
     <label>Enter your weight:
