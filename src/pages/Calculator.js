@@ -16,9 +16,9 @@ import { Inventory as InventoryModel } from '../models';
   }
 
 export default function Calculator() {
-  var [plateInventory, setPlateInventory] = useState([]);
-  var [desiredWeight, setDesiredWeight] = useState([]);
-  var [platesIUsed, setPlatesIUsed] = useState([]);
+  const [plateInventory, setPlateInventory] = useState([]);
+  const [desiredWeight, setDesiredWeight] = useState([]);
+  const [platesIUsed, setPlatesIUsed] = useState([]);
 
 
   useEffect(() => {
@@ -45,13 +45,20 @@ export default function Calculator() {
     console.log(newPlateList);
   }
 
+function setDesiredWeightHandler(value) {
+
+  setPlatesIUsed([]);
+  setDesiredWeight(value);
+}
+
+
   return (
     <div>
       <label>Enter your weight:
       <input
         type="text" 
         value= {desiredWeight}
-        onChange={(e) => setDesiredWeight(e.target.value)}
+        onChange={(e) => setDesiredWeightHandler(e.target.value)}
       />
       </label>
 
