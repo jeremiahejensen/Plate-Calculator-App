@@ -9,15 +9,15 @@ import '../App.css';
 import {username as loggedInUser} from '../App.js';
 import fetchPlates from '../DataBase';
 
-const initialFormState = { weight: 0, color: '#000000' };
-const Inventory = ({ user, signOut }) => {
+var initialFormState = { weight: 0, color: '#000000' };
+var Inventory = ({ user, signOut }) => {
 
   useEffect(() => {
     getInventory();
   }, [getInventory]);
    
-  const [weights, setWeights] = useState([]);
-  const [formData, setFormData] = useState(initialFormState);
+  var [weights, setWeights] = useState([]);
+  var [formData, setFormData] = useState(initialFormState);
   
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getInventory() {
@@ -31,24 +31,6 @@ const Inventory = ({ user, signOut }) => {
     setWeights(x);
 
   }
-
-
-
-
-
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // async function fetchPlates() {
-
-  //   if (weights.length > 0) return;
-
-  //   const models = await DataStore.query(InventoryModel, Predicates.ALL, {
-  //     sort: s => s.weight(SortDirection.DESCENDING)
-  //   });
-  //   console.log(models);
-  //   setWeights(models);
-  // }
-
 
   //This is the function that writes to the database
   async function createPlates() {
@@ -64,7 +46,7 @@ const Inventory = ({ user, signOut }) => {
 }
 
   async function deletePlate(weightToDelete) {
-    const newPlatesArray = weights.filter(weight => weight.id !== weightToDelete.id);
+    var newPlatesArray = weights.filter(weight => weight.id !== weightToDelete.id);
     setWeights(newPlatesArray);
     console.log('I am about to delete ID' + weightToDelete.id + ' And verison ' + weightToDelete._version);
     try {
@@ -80,7 +62,7 @@ const Inventory = ({ user, signOut }) => {
   return (
     <div className="App">
            <h1>Inventory</h1>
-        <h1>Hello {loggedInUser}</h1>
+        <h1>Hello {user}</h1>
   
   <p>Choose your weight's color:</p>
   <div>
@@ -131,11 +113,14 @@ value={formData.color}
                   {/* <td><HexColorPicker color= {weight.color} onChangeComplete={ handleColorChange }/></td> */}
 
                   <button onClick={() => deletePlate(weight)}>Delete Plate</button>
+                  
               </tr>
           )}
+          
       </tbody>
     </table>
   </div>
+  <button onClick={signOut}>Sign out</button>
 </div>
 );
   };

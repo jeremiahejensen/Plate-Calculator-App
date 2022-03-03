@@ -1,0 +1,20 @@
+type Inventory @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  weight: Int!
+  username: String!
+  color: String
+  inventory: Int!
+}
+
+input AMPLIFY {
+  globalAuthRule: AuthRule = {allow: public}
+}
+
+type Plates @model {
+  id: ID!
+  Weight: Int
+  description: String
+  username: String
+  color: String
+}
+ 

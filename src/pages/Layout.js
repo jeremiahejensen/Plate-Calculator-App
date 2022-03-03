@@ -5,8 +5,8 @@ const Layout = () => {
     <>
       <nav>
         <ul>
-          <li>
-            <Link to="/">Home</Link>
+        <li>
+            <Link to="Calculator">Calculator</Link>
           </li>
           <li>
             <Link to="/Inventory">Inventory</Link>
@@ -16,10 +16,13 @@ const Layout = () => {
           </li>
         </ul>
       </nav>
-
       <Outlet />
     </>
   )
 };
+
+
+
+
 
 export default Layout;
