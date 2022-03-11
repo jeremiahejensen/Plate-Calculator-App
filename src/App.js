@@ -10,26 +10,30 @@ import Calculator from "./pages/Calculator";
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
-  const [showHideCalculator, setshowHideCalculator] = useState([]);
-  const [showHideInventory, setshowHideInventory] = useState([]);
-  const [showHideContact, setshowHideContact] = useState([]);
+  const [showHideCalculator, setshowHideCalculator] = useState(true);
+  const [showHideInventory, setshowHideInventory] = useState(false);
+  const [showHideContact, setshowHideContact] = useState(false);
 
+  function showComponent(nameOfComponent) {
 
-  function hideComponent(nameOfComponent) {
-    console.log();
-    switch (nameOfComponent) {
-      case "showHideCalculator":
-        setshowHideCalculator(!showHideCalculator);
+    switch(nameOfComponent) {
+      case "showCalculator": // if (nameOfComponent==showCalculator) then ...
+        setshowHideCalculator(true);
+        setshowHideInventory(false);
+        setshowHideContact(false);
         break;
-      case "showHideInventory":
-        setshowHideInventory(!showHideInventory);
+      case "showInventory":        
+      setshowHideCalculator(false);
+      setshowHideInventory(true);
+      setshowHideContact(false);
         break;
-      case "showHideContact":
-        setshowHideContact(!showHideContact);
+      case "showContact":
+        setshowHideCalculator(false);
+      setshowHideInventory(false);
+      setshowHideContact(true);
         break;
       default:
         console.log("whoops, hit the default route");
-
     }
   }
 
@@ -38,20 +42,20 @@ function App({ signOut, user }) {
       <h1>Hello {user.username}</h1>
       <div>
     {showHideCalculator && <Calculator />}
-    <hr />
+    
     {showHideInventory && <Inventory user={user}/>}
-    <hr />
+    
     {showHideContact && <Contact />}
-    <hr />
+  
     <div>
-      <button onClick={() => hideComponent("showHideCalculator")}>
-        Click to hide Calculator component
+      <button onClick={() => showComponent("showCalculator")}>
+       Calculator
       </button>
-      <button onClick={() => hideComponent("showHideInventory")}>
-        Click to hide Inventory component
+      <button onClick={() => showComponent("showInventory")}>
+        Inventory
       </button>
-      <button onClick={() => hideComponent("showHideContact")}>
-        Click to hide Contact component
+      <button onClick={() => showComponent("showContact")}>
+        Contact
       </button>
     </div>
          <button onClick={signOut}>Sign out</button>
@@ -61,79 +65,3 @@ function App({ signOut, user }) {
 }
 
 export default withAuthenticator(App);
-
-/* 
-import { Amplify } from 'aws-amplify';
-import { withAuthenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-import awsExports from './aws-exports';
-import './App.css';
-import { render } from "react-dom";
-import React, { useState } from "react";
-import './index.css';
-import Contact from "./pages/Contact";
-import Inventory from "./pages/Inventory";
-import Calculator from "./pages/Calculator";
-Amplify.configure(awsExports);
-
-function App({ isPassedToWithAuthenticator, signOut, user }) {
-
-  const [showHideCalculator, setshowHideCalculator] = useState([]);
-  const [showHideInventory, setshowHideInventory] = useState([]);
-  const [showHideContact, setshowHideContact] = useState([]);
-
-
-  function hideComponent(nameOfComponent) {
-    console.log();
-    switch (nameOfComponent) {
-      case "showHideCalculator":
-        setshowHideCalculator(!showHideCalculator);
-        break;
-      case "showHideInventory":
-        setshowHideInventory(!showHideInventory);
-        break;
-      case "showHideContact":
-        setshowHideContact(!showHideContact);
-        break;
-      default:
-        console.log("whoops, hit the default route");
-
-    }
-  }
-
-  console.log("Inside app user is " + user);
-  return ( 
-    <div>
-    {showHideCalculator && <Calculator />}
-    <hr />
-    {showHideInventory && <Inventory user={user}/>}
-    <hr />
-    {showHideContact && <Contact />}
-    <hr />
-    <div>
-      <button onClick={() => hideComponent("showHideCalculator")}>
-        Click to hide Calculator component
-      </button>
-      <button onClick={() => hideComponent("showHideInventory")}>
-        Click to hide Inventory component
-      </button>
-      <button onClick={() => hideComponent("showHideContact")}>
-        Click to hide Contact component
-      </button>
-    </div>
-         <button onClick={signOut}>Sign out</button>
-  </div>
-  );
-}
-
- export default withAuthenticator(App);
- render(<App />, document.getElementById("root"));
-  export async function getStaticProps() {
-  return {
-    props: {
-      isPassedToWithAuthenticator: true,
-    },
-  };
-};
-
- */
