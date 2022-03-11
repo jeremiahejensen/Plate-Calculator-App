@@ -6,7 +6,6 @@ import { deleteInventory as deleteInventoryMutation } from '../graphql/mutations
 // import { HexColorPicker } from "react-colorful";
 import '@aws-amplify/ui-react/styles.css';
 import '../App.css';
-import {username as loggedInUser} from '../App.js';
 import fetchPlates from '../DataBase';
 
 var initialFormState = { weight: 0, color: '#000000' };
@@ -26,7 +25,7 @@ var Inventory = ({ user, signOut }) => {
 
     var x;
     x = await fetchPlates();
-    console.log(x);
+    console.log("fetchPlates returned " + x.length + " plates in the inventory");
   
     setWeights(x);
 
@@ -37,9 +36,9 @@ var Inventory = ({ user, signOut }) => {
     await DataStore.save(
     new InventoryModel({
 		"weight": Number(formData.weight),
-		"username": parseInt(formData.inventory, 10),
-		"color": loggedInUser,
-		"inventory": formData.color
+		"username": user.username,
+		 "color": formData.color,
+		"inventory": parseInt(formData.inventory, 10)
 	})
 );
 
@@ -62,7 +61,7 @@ var Inventory = ({ user, signOut }) => {
   return (
     <div className="App">
            <h1>Inventory</h1>
-        <h1>Hello {user}</h1>
+        <h1>Hello {user.username}</h1>
   
   <p>Choose your weight's color:</p>
   <div>

@@ -15,7 +15,7 @@ import { Inventory as InventoryModel } from '../models';
     return models;
   }
 
-export default function Calculator() {
+export default function Calculator(signOut) {
   const [plateInventory, setPlateInventory] = useState([]);
   const [desiredWeight, setDesiredWeight] = useState([]);
   const [platesIUsed, setPlatesIUsed] = useState([]);
@@ -84,7 +84,7 @@ function setDesiredWeightHandler(value) {
         </table>
       </div>
     }
-
+ <button onClick={signOut}>Sign out</button>
 <button type="button" onClick={calculate}>Calculate Plates</button>
 
 
