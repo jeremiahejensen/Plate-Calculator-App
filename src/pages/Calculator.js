@@ -77,7 +77,7 @@ function setDesiredWeightHandler(value) {
             {platesIUsed.map(plate =>
               <tr key={plate.id}>
                 <td>{plate.weight}</td>
-                <td>{plate.color}</td>
+                <td bgcolor="green">{plate.weight}</td>
               </tr>
             )}
           </tbody>

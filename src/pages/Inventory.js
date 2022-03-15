@@ -67,7 +67,7 @@ var Inventory = ({ user, signOut }) => {
   <div>
 <input type="color" id="color" name="color"
 onChange={e => setFormData({ ...formData, 'color': e.target.value})}
-placeholder="Color"
+placeholder="color"
 value={formData.color} 
      />
   </div>
@@ -108,7 +108,7 @@ value={formData.color}
           {weights.map(weight =>
               <tr key={weight.id}>
                   <td>{weight.weight}</td>
-                  <td>{weight.color}</td>
+                  <td bgcolor={weight.color}></td>
                   {/* <td><HexColorPicker color= {weight.color} onChangeComplete={ handleColorChange }/></td> */}
 
                   <button onClick={() => deletePlate(weight)}>Delete Plate</button>
