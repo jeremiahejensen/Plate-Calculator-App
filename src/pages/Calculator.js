@@ -77,12 +77,19 @@ function setDesiredWeightHandler(value) {
       />
       </label>
 
-      
+      { desiredWeight > 0 &&
+      <div> 
       <p>You asked for {desiredWeight}</p>
-      <p>You're getting {totalWeightUsed} lbs</p>
-      <p>I calculated and your getting:</p>
+      </div>
+}
+{ totalWeightUsed > 0 &&
+      <div> 
+       <p>You're getting {totalWeightUsed} lbs</p>
+      </div>
+}
     { platesIUsed.length > 0 &&
       <div style={{marginBottom: 30}}>
+        <p>I calculated and your getting:</p>
         <table className="table table-striped table-bordered">
           <thead>
             <tr key="header">
