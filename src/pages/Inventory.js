@@ -1,5 +1,7 @@
 import { DataStore } from '@aws-amplify/datastore';
 import { Inventory as InventoryModel } from '../models';
+
+
 import React, { useState, useEffect } from 'react';
 import { API } from 'aws-amplify';
 import { deleteInventory as deleteInventoryMutation } from '../graphql/mutations';
@@ -7,6 +9,7 @@ import { deleteInventory as deleteInventoryMutation } from '../graphql/mutations
 import '@aws-amplify/ui-react/styles.css';
 import '../App.css';
 import fetchPlates from '../DataBase';
+
 
 var initialFormState = { weight: 0, color: '#000000' };
 var Inventory = ({ user, signOut }) => {
@@ -25,7 +28,7 @@ var Inventory = ({ user, signOut }) => {
 
     var x;
     x = await fetchPlates();
-    console.log("fetchPlates returned " + x.length + " plates in the inventory");
+    console.log("fetchPlates returned " + x.length  + " plates in the inventory");
   
     setWeights(x);
 

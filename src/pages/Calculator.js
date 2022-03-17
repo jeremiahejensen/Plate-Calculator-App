@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import calculatePlates from "../calculate2";
 import knownWeights from "../calculate2";
 // import fetchPlates from '../DataBase';
 import { DataStore, Predicates, SortDirection } from '@aws-amplify/datastore';
 import { Inventory as InventoryModel } from '../models';
-
+import totalWeightUsed from '../calculate2';
  // eslint-disable-next-line react-hooks/exhaustive-deps
  async function fetchPlates() {
+
+  
+
+
 
     var models = await DataStore.query(InventoryModel, Predicates.ALL, {
       sort: s => s.weight(SortDirection.DESCENDING)
@@ -19,7 +22,7 @@ export default function Calculator(signOut) {
   const [plateInventory, setPlateInventory] = useState([]);
   const [desiredWeight, setDesiredWeight] = useState([]);
   const [platesIUsed, setPlatesIUsed] = useState([]);
-
+  const [totalWeightUsed, setTotalWeightUsed] = useState([]);
 
   useEffect(() => {
     getInventory();
@@ -35,14 +38,26 @@ export default function Calculator(signOut) {
     setPlateInventory(x);
     console.log('====== Finished getting inventory');
     console.log(platesIUsed);
+    if (desiredWeight > totalWeightUsed) return;
+    console.log("Sorry you do not have enough plates to do this lift");
   }
+
+  
 
   function calculate(e) {
     e.preventDefault();
     console.log("hello from calculate. I want to lift " + desiredWeight + " I have " + plateInventory.length + " In my inventory");
-    var newPlateList = calculatePlates(desiredWeight, plateInventory);
-    setPlatesIUsed(newPlateList);
-    console.log(newPlateList);
+    var temp = calculatePlates(desiredWeight, plateInventory);
+    var temptotalWeightUsed = temp.totalWeightUsed;
+
+    setTotalWeightUsed(temp.totalWeightUsed);
+
+    var tempplatesIUsed = temp.platesIUsed;
+    console.log("Calculate function returned " + temptotalWeightUsed + ' lbs.');
+    setPlatesIUsed([...temp.platesIUsed]);
+    console.log("temp.PlatesIUsed has " + temp.platesIUsed.length + " plates.");
+    console.log("tempplatesIUsed has " + tempplatesIUsed.length + " plates.");
+    console.log("Calculate function returned " + platesIUsed.length + " plates.");
   }
 
 function setDesiredWeightHandler(value) {
@@ -62,8 +77,10 @@ function setDesiredWeightHandler(value) {
       />
       </label>
 
-      <h1>The plates you need are: {knownWeights}</h1>
-    
+      
+      <p>You asked for {desiredWeight}</p>
+      <p>You're getting {totalWeightUsed} lbs</p>
+      <p>I calculated and your getting:</p>
     { platesIUsed.length > 0 &&
       <div style={{marginBottom: 30}}>
         <table className="table table-striped table-bordered">
