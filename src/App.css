@@ -42,12 +42,26 @@ body {
   flex-direction: right;
   align-items: right;
   justify-content: center;
+  text-align: center;
+}
+
+body-buttons{
+  text-align: center;
+}
+
+.app-tbody{
+  text-align: center;
+}
+
+table-bordered{
+  text-align: center;
+
 }
 
 table-striped{
 
   }
-
 tr:nth-child(even) {
   background-color: #554545c4;
+  text-align: center;
 }

@@ -42,8 +42,6 @@ export default function Calculator(signOut) {
     console.log("Sorry you do not have enough plates to do this lift");
   }
 
-  
-
   function calculate(e) {
     e.preventDefault();
     console.log("hello from calculate. I want to lift " + desiredWeight + " I have " + plateInventory.length + " In my inventory");
@@ -60,12 +58,11 @@ export default function Calculator(signOut) {
     console.log("Calculate function returned " + platesIUsed.length + " plates.");
   }
 
-function setDesiredWeightHandler(value) {
-
-  setPlatesIUsed([]);
-  setDesiredWeight(value);
-}
-
+  function setDesiredWeightHandler(value) {
+    setPlatesIUsed([]);
+    setTotalWeightUsed(0);
+    setDesiredWeight(value);
+  }
 
   return (
     <div>
@@ -78,19 +75,21 @@ function setDesiredWeightHandler(value) {
       </label>
 
       { desiredWeight > 0 &&
-      <div> 
-      <p>You asked for {desiredWeight}</p>
-      </div>
-}
-{ totalWeightUsed > 0 &&
-      <div> 
-       <p>You're getting {totalWeightUsed} lbs</p>
-      </div>
-}
+        <div> 
+        <p>You asked for {desiredWeight}</p>
+        </div>
+      }
+
+      { totalWeightUsed > 0 &&
+        <div> 
+        <p>You're getting {totalWeightUsed} lbs</p>
+        </div>
+      }
+
     { platesIUsed.length > 0 &&
       <div style={{marginBottom: 30}}>
-        <p>I calculated and your getting:</p>
-        <table className="table table-striped table-bordered">
+        <p>I calculated and you're getting:</p>
+        <table style={{width: 20}} className="table table-striped table-bordered">
           <thead>
             <tr key="header">
               <th>Weight</th>
@@ -108,9 +107,13 @@ function setDesiredWeightHandler(value) {
         </table>
       </div>
     }
- <button onClick={signOut}>Sign out</button>
-<button type="button" onClick={calculate}>Calculate Plates</button>
 
+    
+ <div>
+    
+    <button  style={{margin: 20}} type="button" onClick={calculate}>Calculate Plates</button>    
+    
+</div>
 
     </div>
 
