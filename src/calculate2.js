@@ -48,6 +48,14 @@ platesIUsed.map(plate =>
 
   var totalWeightUsed = totalPlates + bar;
   console.log("inside calculate function, platesIUsed has " + platesIUsed.length + ' records');
-  return {platesIUsed, totalWeightUsed};
+
+  var message = '';
+  if (desiredWeights <= totalWeightUsed) {
+    message = '';
+   } else {
+    message ='Sorry, you do not have enough weight to do this lift.';
+   }
+  
+  return {platesIUsed, totalWeightUsed, message};
   
 }

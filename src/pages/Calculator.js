@@ -8,10 +8,6 @@ import totalWeightUsed from '../calculate2';
  // eslint-disable-next-line react-hooks/exhaustive-deps
  async function fetchPlates() {
 
-  
-
-
-
     var models = await DataStore.query(InventoryModel, Predicates.ALL, {
       sort: s => s.weight(SortDirection.DESCENDING)
     });
@@ -23,6 +19,7 @@ export default function Calculator(signOut) {
   const [desiredWeight, setDesiredWeight] = useState([]);
   const [platesIUsed, setPlatesIUsed] = useState([]);
   const [totalWeightUsed, setTotalWeightUsed] = useState([]);
+  const [message, setMessage] = useState([]);
 
   useEffect(() => {
     getInventory();
@@ -38,24 +35,16 @@ export default function Calculator(signOut) {
     setPlateInventory(x);
     console.log('====== Finished getting inventory');
     console.log(platesIUsed);
-    if (desiredWeight > totalWeightUsed) return;
-    console.log("Sorry you do not have enough plates to do this lift");
+    
   }
 
   function calculate(e) {
     e.preventDefault();
     console.log("hello from calculate. I want to lift " + desiredWeight + " I have " + plateInventory.length + " In my inventory");
-    var temp = calculatePlates(desiredWeight, plateInventory);
-    var temptotalWeightUsed = temp.totalWeightUsed;
-
-    setTotalWeightUsed(temp.totalWeightUsed);
-
-    var tempplatesIUsed = temp.platesIUsed;
-    console.log("Calculate function returned " + temptotalWeightUsed + ' lbs.');
-    setPlatesIUsed([...temp.platesIUsed]);
-    console.log("temp.PlatesIUsed has " + temp.platesIUsed.length + " plates.");
-    console.log("tempplatesIUsed has " + tempplatesIUsed.length + " plates.");
-    console.log("Calculate function returned " + platesIUsed.length + " plates.");
+    var returnValue = calculatePlates(desiredWeight, plateInventory);
+    setMessage(returnValue.message);
+    setTotalWeightUsed(returnValue.totalWeightUsed);
+    setPlatesIUsed([...returnValue.platesIUsed]);   
   }
 
   function setDesiredWeightHandler(value) {
@@ -66,7 +55,7 @@ export default function Calculator(signOut) {
 
   return (
     <div>
-      <label>Enter your weight:
+      <label>Please enter your weight:
       <input
         type="text" 
         value= {desiredWeight}
@@ -76,14 +65,20 @@ export default function Calculator(signOut) {
 
       { desiredWeight > 0 &&
         <div> 
-        <p>You asked for {desiredWeight}</p>
+        <p>You requested {desiredWeight}</p>
         </div>
-      }
+      }   
 
       { totalWeightUsed > 0 &&
         <div> 
         <p>You're getting {totalWeightUsed} lbs</p>
         </div>
+      }
+
+      { message && 
+    <div>
+      <p>{message}</p> 
+      </div>
       }
 
     { platesIUsed.length > 0 &&
@@ -107,17 +102,10 @@ export default function Calculator(signOut) {
         </table>
       </div>
     }
-
     
  <div>
-    
-    <button  style={{margin: 20}} type="button" onClick={calculate}>Calculate Plates</button>    
-    
+    <button  style={{margin: 20}} type="button" onClick={calculate}>Calculate Plates</button>
 </div>
-
     </div>
-
-
-
   );
 }
