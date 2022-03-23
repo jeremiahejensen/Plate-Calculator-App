@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import calculatePlates from "../calculate2";
-import knownWeights from "../calculate2";
-// import fetchPlates from '../DataBase';
 import { DataStore, Predicates, SortDirection } from '@aws-amplify/datastore';
 import { Inventory as InventoryModel } from '../models';
-import totalWeightUsed from '../calculate2';
- // eslint-disable-next-line react-hooks/exhaustive-deps
- async function fetchPlates() {
+import bar from '../calculate2';
+
+async function fetchPlates() {
 
     var models = await DataStore.query(InventoryModel, Predicates.ALL, {
       sort: s => s.weight(SortDirection.DESCENDING)
@@ -35,8 +33,7 @@ export default function Calculator(signOut) {
     setPlateInventory(x);
     console.log('====== Finished getting inventory');
     console.log(platesIUsed);
-    
-  }
+    }
 
   function calculate(e) {
     e.preventDefault();
@@ -45,6 +42,15 @@ export default function Calculator(signOut) {
     setMessage(returnValue.message);
     setTotalWeightUsed(returnValue.totalWeightUsed);
     setPlatesIUsed([...returnValue.platesIUsed]);   
+
+
+    if (desiredWeight <= 45) {
+      console.log('THIS DOES NOT NEED TO PRINT');
+    }
+
+
+
+
   }
 
   function setDesiredWeightHandler(value) {
@@ -62,8 +68,7 @@ export default function Calculator(signOut) {
         onChange={(e) => setDesiredWeightHandler(e.target.value)}
       />
       </label>
-
-      { desiredWeight > 0 &&
+       { desiredWeight > 0 &&
         <div> 
         <p>You requested {desiredWeight}</p>
         </div>

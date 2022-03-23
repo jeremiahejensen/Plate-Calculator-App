@@ -1,13 +1,15 @@
 import { Outlet, Link } from "react-router-dom";
 
 const Layout = () => {
-  return (
+  return (    
     <>
       <nav>
         <ul>
+          <br>
         <li>
             <Link to="Calculator">Calculator</Link>
           </li>
+          </br>
           <li>
             <Link to="/Inventory">Inventory</Link>
           </li>
@@ -20,9 +22,5 @@ const Layout = () => {
     </>
   )
 };
-
-
-
-
 
 export default Layout;

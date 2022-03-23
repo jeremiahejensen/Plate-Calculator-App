@@ -122,7 +122,6 @@ value={formData.color}
       </tbody>
     </table>
   </div>
-  <button onClick={signOut}>Sign out</button>
 </div>
 );
   };
