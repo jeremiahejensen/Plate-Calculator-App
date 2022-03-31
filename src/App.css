@@ -75,9 +75,15 @@ tr:nth-child(even) {
 .dropbtn {
   background-color: grey;
   color: white;
-  padding: 16px;
+  padding: 10px;
   font-size: 16px;
   border: none;
+  border-radius: 8px;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -89,7 +95,7 @@ tr:nth-child(even) {
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
-  position: absolute;
+  position: static;
   background-color: #f1f1f1;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -111,4 +117,4 @@ tr:nth-child(even) {
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {background-color: darkgrey;}

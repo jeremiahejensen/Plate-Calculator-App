@@ -47,26 +47,24 @@ function App({ signOut, user }) {
     
     {showHideContact && <Contact />}
   
-    <div>
-      <button onClick={() => showComponent("showCalculator")}>
-       Calculator
-      </button>
-      <button onClick={() => showComponent("showInventory")}>
-        Inventory
-      </button>
-      <button onClick={() => showComponent("showContact")}>
-        Contact
-      </button>
-    </div>
          <button onClick={signOut}>Sign out</button>
   </div>
 
   <div class="dropdown">
   <button class="dropbtn">Selection</button>
   <div class="dropdown-content">
-    <a href="showCalculator">Calculator</a>
-    <a href="Inventory">Inventory</a>
-    <a href="contact">Contact</a>
+  <button onClick={() => showComponent("showCalculator")}>
+       Calculator
+      </button>
+
+      <button onClick={() => showComponent("showInventory")}>
+        Inventory
+      </button>
+      
+      <button onClick={() => showComponent("showContact")}>
+        Contact
+      </button>
+    
   </div>
 </div>
     </>
