@@ -47,10 +47,6 @@ export default function Calculator(signOut) {
     if (desiredWeight <= 45) {
       console.log('THIS DOES NOT NEED TO PRINT');
     }
-
-
-
-
   }
 
   function setDesiredWeightHandler(value) {

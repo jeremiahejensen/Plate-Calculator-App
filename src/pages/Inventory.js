@@ -93,7 +93,6 @@ value={formData.color}
   />
   <br/>
 
-
   <button onClick={createPlates}>Create Plate</button>
   <br/> 
   

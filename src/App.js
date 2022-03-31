@@ -3,6 +3,7 @@ import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 import React, { useState } from "react";
+import Layout from "./pages/Layout";
 import Contact from "./pages/Contact";
 import Inventory from "./pages/Inventory";
 import Calculator from "./pages/Calculator";
@@ -48,20 +49,31 @@ function App({ signOut, user }) {
     {showHideContact && <Contact />}
   
     <div>
-      <button onClick={() => showComponent("showCalculator")}>
+    </div>
+         <button onClick={signOut}>Sign out</button>
+    </div>
+
+<div class="dropdown">
+  <button class="dropbtn">Options</button>
+  <div class="dropdown-content">
+    
+  <button onClick={() => showComponent("showCalculator")}>
        Calculator
       </button>
+    
       <button onClick={() => showComponent("showInventory")}>
         Inventory
       </button>
+    
       <button onClick={() => showComponent("showContact")}>
         Contact
       </button>
-    </div>
-         <button onClick={signOut}>Sign out</button>
   </div>
+</div>
+  
     </>
   );
 }
+
 
 export default withAuthenticator(App);
