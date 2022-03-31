@@ -60,6 +60,15 @@ function App({ signOut, user }) {
     </div>
          <button onClick={signOut}>Sign out</button>
   </div>
+
+  <div class="dropdown">
+  <button class="dropbtn">Selection</button>
+  <div class="dropdown-content">
+    <a href="showCalculator">Calculator</a>
+    <a href="Inventory">Inventory</a>
+    <a href="contact">Contact</a>
+  </div>
+</div>
     </>
   );
 }
