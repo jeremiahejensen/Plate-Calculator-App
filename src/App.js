@@ -56,11 +56,9 @@ function App({ signOut, user }) {
   <button onClick={() => showComponent("showCalculator")}>
        Calculator
       </button>
-
       <button onClick={() => showComponent("showInventory")}>
         Inventory
       </button>
-      
       <button onClick={() => showComponent("showContact")}>
         Contact
       </button>
